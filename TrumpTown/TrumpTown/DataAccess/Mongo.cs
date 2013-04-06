@@ -1,32 +1,37 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace TrumpTown.DataAccess
 {
     public class MongoData
     {
-        //public const string ConnectionString = "mongodb://localhost";
-        //public const string DatabaseName = "test";
+        public const string ConnectionString = "mongodb://MongoLab-2:OodroYtw5YXihgJPNlMlH79xc9KmMQ5nswjedkk73Xo-@ds045087.mongolab.com:45087/MongoLab-2";
+        public const string DatabaseName = "MongoLab-2";
         //public string WhichDatabase { get { return "Mongo"; } }
 
-        //public MongoClient ClientConnection
-        //{
-        //    get { return Connect(); }
-        //}
+        public MongoClient ClientConnection
+        {
+            get { return Connect(); }
+        }
 
-        //private MongoClient Connect()
-        //{
-        //    return new MongoClient(ConnectionString);
-        //}
+        private MongoClient Connect()
+        {
+            return new MongoClient(ConnectionString);
+        }
 
-        //private MongoDatabase GetDatabase()
-        //{
-        //    var server = ClientConnection.GetServer();
-        //    return server.GetDatabase(DatabaseName);
-        //}
+        private MongoDatabase GetDatabase()
+        {
+            var server = ClientConnection.GetServer();
+            return server.GetDatabase(DatabaseName);
+        }
 
         //public long InsertRecords(string name, int iterations)
         //{
@@ -44,46 +49,83 @@ namespace TrumpTown.DataAccess
         //    return s.ElapsedMilliseconds;
         //}
 
-        //public long GetCount()
-        //{
-        //    var db = GetDatabase();
-        //    return db.GetCollection<MongoEntity>("entities").Count();
-        //}
-
-        //public IEnumerable<BaseEntity> GetLatestRecords(int numberRecords, out long timeElapsed)
-        //{
-        //    Stopwatch s = new Stopwatch();
-        //    List<BaseEntity> baseEntities = new List<BaseEntity>();
-        //    s.Start();
-        //    var db = GetDatabase();
-        //    //var query = Query.LTE("InsertDate", DateTime.Now.ToUniversalTime());
-        //    var collection = db.GetCollection<MongoEntity>("entities");
-
-        //    var result = collection.AsQueryable<MongoEntity>()
-        //        .OrderByDescending(x => x.InsertDate)
-        //        .ThenBy(x => x.Name)
-        //        .ThenBy(x => x.Iteration)
-        //        .Take(numberRecords).ToList();
-
-        //    s.Stop();
-        //    timeElapsed = s.ElapsedMilliseconds;
-
-        //    foreach (var item in result)
-        //    {
-        //        BaseEntity mongoAsBase = new BaseEntity
-        //        {
-        //            Id = item.Id.ToString(),
-        //            Name = item.Name,
-        //            Iteration = (int)item.Iteration,
-        //            InsertDate = DateTime.Parse(item.InsertDate.ToString())
-        //        };
-        //        baseEntities.Add(mongoAsBase);
-        //    }
-
-        //    return baseEntities;
+        public long GetCount()
+        {
+            var db = GetDatabase();
+            return db.GetCollection("areas").Count();
+        }
 
 
-        //}
+        public class TrumpCard
+        {
+            [BsonElement("CTY_CODE")]
+            public string CityCode { get; set; }
+
+            [BsonElement("CTY_NAME")]
+            public string CityName { get; set; }
+
+            [BsonElement("_id")]
+            public ObjectId Id { get; set; }
+
+            [BsonElement("AREA_METADATA")]
+            public string AreaMetaData { get; set; }
+
+            [BsonElement("All Deaths")]
+            public int AllDeaths { get; set; }
+
+            [BsonElement("Females; Cancer")]
+            public string FemalesDeathCancer { get; set; }
+
+            [BsonElement("Females; All Causes")]
+            public string FemalesAllDeaths { get; set; }
+
+            [BsonElement("Females; Cerebrovascular Disease (including Stroke)")]
+            public string FemalesDeathCerebro { get; set; }
+
+            [BsonElement("Females; Coronary Heart Disease")]
+            public string FemalesDeathHeart { get; set; }
+
+            [BsonElement("GOR_CODE")]
+            public string GorCode { get; set; }
+
+
+            [BsonElement("GOR_NAME")]
+            public string GorName { get; set; }
+
+            [BsonElement("LA_CODE")]
+            public string LaCode { get; set; }
+
+            [BsonElement("Males; All Causes")]
+            public string MalesDeathAll { get; set; }
+
+            [BsonElement("Males; Cancer")]
+            public string MalesDeathCancer { get; set; }
+
+            [BsonElement("Males; Cerebrovascular Disease (including Stroke)")]
+            public string MalesDeathCerebro { get; set; }
+
+            [BsonElement("Males; Coronary Heart Disease")]
+            public string MalesDeathHeart { get; set; }
+
+            [BsonElement("H1")]
+            public string H1 { get; set; }
+
+            [BsonElement("LA_NAME")]
+            public string LAName { get; set; }
+
+        }
+
+
+        public TrumpCard GetRecord(string id)
+        {
+            Stopwatch s = new Stopwatch();
+            s.Start();
+            var db = GetDatabase();
+            var query = Query.LTE("_id", new ObjectId(id));
+
+            return db.GetCollection<TrumpCard>("areas").Find(query).FirstOrDefault();
+
+        }
 
         //public long DeleteRecord(string name, out long documentsAffected)
         //{
