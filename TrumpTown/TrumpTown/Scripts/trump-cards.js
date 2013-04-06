@@ -1,5 +1,5 @@
 ﻿$().ready(function () {
-    $("tr:odd").css("background-color", "#bbbbff");
+    
 
     $("#high").click(function () {
         playTrumpCard("high");
