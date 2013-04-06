@@ -6,6 +6,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 using MongoDB.Bson;
 using TrumpTown.DataAccess;
 using TrumpTown.Models;
+using MongoDB.Bson.IO;
 
 namespace TrumpTown
 {
@@ -13,12 +14,13 @@ namespace TrumpTown
     {
         private static List<string> _clients = new List<string>();
         private static List<string> _readyUsers = new List<string>();
-        private static Dictionary<BsonValue, string> _userCardsInPlay = new Dictionary<BsonValue, string>(); 
-        private static List<BsonDocument> _cardsInPlay = new List<BsonDocument>(); 
+        private static Dictionary<BsonValue, string> _userCardsInPlay = new Dictionary<BsonValue, string>();
+        private static List<BsonDocument> _cardsInPlay = new List<BsonDocument>();
         private static MongoData _mongo = new MongoData();
- 
-        public void JoinGame(string username)
+
+        public void JoinGame()
         {
+            var username = GetUserName();
             Clients.Caller.username = username;
             Clients.Others.OnJoined(username);
         }
@@ -29,7 +31,7 @@ namespace TrumpTown
             _clients.Remove(Context.ConnectionId);
             return base.OnDisconnected();
         }
-        
+
         public override System.Threading.Tasks.Task OnConnected()
         {
             if (_clients.Count == 0)
@@ -37,7 +39,7 @@ namespace TrumpTown
                 Clients.Caller.WonLast = true;
             }
             _clients.Add(Context.ConnectionId);
- 	         return base.OnConnected();
+            return base.OnConnected();
         }
 
         public void Deal()
@@ -47,7 +49,7 @@ namespace TrumpTown
             _userCardsInPlay.Add(id, Context.ConnectionId);
             _cardsInPlay.Add(card);
 
-            var json = card.ToJson().Replace("ObjectId(\"" + id + "\")", "\"" + id + "\"");
+            var json = card.ToJson(new JsonWriterSettings { OutputMode = JsonOutputMode.Strict });
 
             Clients.Caller.OnCard(json);
         }
@@ -73,7 +75,7 @@ namespace TrumpTown
             _cardsInPlay.Sort(comparer);
             return _cardsInPlay.FirstOrDefault()["_id"];
         }
-        
+
         public void PlayerReady()
         {
             _readyUsers.Add(Context.ConnectionId);
@@ -86,9 +88,14 @@ namespace TrumpTown
                 _readyUsers.Clear();
             }
         }
+
+        public string GetUserName()
+        {
+            return Context.User != null ? Context.User.Identity.Name : "";
+        }
     }
 
-    public class DocComparer: IComparer<BsonDocument>
+    public class DocComparer : IComparer<BsonDocument>
     {
         private readonly string _field;
         private readonly bool _compareLower;

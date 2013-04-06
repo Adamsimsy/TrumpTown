@@ -48,21 +48,19 @@
 
     trumpTown.client.OnEndRound = function (cardId, user) {
         // if card and user match highlight as winner
-
+        
         // enable ready button
     };
+
 
     // Set initial focus to message input box.  
     //$('#message').focus();
     // Start the connection.
     $.connection.hub.start().done(function () {
-
+            trumpTown.server.joinGame();
         //Need to initially get the scores
         trumpTownScore.server.getScores();
 
-        var userName = $('#username').val();
-        if (!!userName) {
-            //trumpTown.server.joinGame(userName);
         }
     });
 });
