@@ -8,7 +8,7 @@
         @foreach (TrumpTown.Models.ExternalLogin externalLogin in Model)
         {
             <tr>
-                <td>@externalLogin.ProviderDisplayName</td>
+                <td><li class="primary badge">@externalLogin.ProviderDisplayName</li> </td>
                 <td>
                     @if (ViewBag.ShowRemoveButton)
                     {

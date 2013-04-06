@@ -4,11 +4,8 @@
     ViewBag.Title = "Log in";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
+<h1 class="lead">@ViewBag.Title.</h1>
 
-<section id="loginForm">
 <h2>Use a local account to log in.</h2>
 @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
     @Html.AntiForgeryToken()
@@ -32,7 +29,9 @@
                 @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
             </li>
         </ol>
+        <div class="pretty medium info btn">
         <input type="submit" value="Log in" />
+            </div>
     </fieldset>
     <p>
         @Html.ActionLink("Register", "Register") if you don't have an account.
