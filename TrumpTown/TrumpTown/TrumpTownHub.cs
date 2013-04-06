@@ -38,8 +38,8 @@ namespace TrumpTown
         {
             var card = new Random().Next().ToString();
             
-            var a = _mongo.GetRecord("515ff7a54f8165619b36efcb");
-            _cardsInPlay.Add(a.Id, Context.ConnectionId);
+            var a = _mongo.GetRecord();
+            //_cardsInPlay.Add(a.Id.ToString(), Context.ConnectionId);
 
             return card;
         }

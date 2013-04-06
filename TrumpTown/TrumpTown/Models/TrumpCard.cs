@@ -64,6 +64,9 @@ namespace TrumpTown.Models
         [BsonElement("LA_NAME")]
         public string LAName { get; set; }
 
+        [BsonElement("Person in Household")]
+        public string PersonInHousehold { get; set; }
+
     }
 
 }

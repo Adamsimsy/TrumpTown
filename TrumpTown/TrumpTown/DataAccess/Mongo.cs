@@ -9,6 +9,11 @@ using System.Linq;
 using System.Web;
 using MongoDB.Bson.Serialization.Attributes;
 using TrumpTown.Models;
+using MongoDB.Bson;
+using MongoDB.Driver;
+using MongoDB.Driver.Builders;
+using MongoDB.Driver.GridFS;
+using MongoDB.Driver.Linq;
 
 namespace TrumpTown.DataAccess
 {
@@ -34,39 +39,47 @@ namespace TrumpTown.DataAccess
             return server.GetDatabase(DatabaseName);
         }
 
-        //public long InsertRecords(string name, int iterations)
-        //{
-        //    Stopwatch s = Stopwatch.StartNew();
-        //    var db = GetDatabase();
-        //    var collection = db.GetCollection<MongoEntity>("entities");
-
-        //    for (var i = 1; i <= iterations; i++)
-        //    {
-        //        var entity = new MongoEntity { Name = name, Iteration = i, InsertDate = DateTime.Now };
-        //        collection.Insert(entity);
-        //    }
-        //    s.Stop();
-
-        //    return s.ElapsedMilliseconds;
-        //}
-
-        public long GetCount()
+        public int GetCount()
         {
             var db = GetDatabase();
-            return db.GetCollection("areas").Count();
+            return (int)db.GetCollection("areas").Count();
         }
 
 
 
 
-        public TrumpCard GetRecord(string id)
+        public string GetRecord()
         {
-            Stopwatch s = new Stopwatch();
-            s.Start();
             var db = GetDatabase();
-            //var query = Query.LTE("_id", );
+            var collection = db.GetCollection("areas");
+            try
+            {
 
-            return db.GetCollection<TrumpCard>("areas").FindOneById(new ObjectId(id));
+           //hardcode the count in for now as we are running out of time...
+            //var count = GetCount();
+                var count = 50000;
+
+            var randomNumber = new Random();
+
+            if (count <= 0)
+                count = 2;
+
+            int randomInt = randomNumber.Next(0, count - 1); 
+           
+
+            var card = collection.AsQueryable()
+                .Skip(randomInt)
+                .Take(1).FirstOrDefault().ToJson();
+
+                return card ?? collection.FindOne().ToJson();
+
+            }
+            catch (Exception ex)
+            {
+                //swallow expection, it's a hack day after all...
+                return collection.FindOne().ToJson();
+            }
+   
 
         }
 
