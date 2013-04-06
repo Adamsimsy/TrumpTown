@@ -3,7 +3,7 @@
     var trumpTown = $.connection.trumpTownHub;
 
     trumpTown.client.OnJoined = function (name) {
-        //Add username to list of people
+        console.log(name + " has joined the game");
     };
 
     trumpTown.client.OnPlayerReady = function (name) {
@@ -20,6 +20,16 @@
 
         // enable ready button
     };
+
+    // Set initial focus to message input box.  
+    //$('#message').focus();
+    // Start the connection.
+    $.connection.hub.start().done(function () {
+        $('#displayname').val(prompt('Enter your name:', ''));
+        trumpTown.server.joinGame($('#displayname').val());
+
+    });
+    
 
     // Start the connection.
     $.connection.hub.start().done(function () {

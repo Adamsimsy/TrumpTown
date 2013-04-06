@@ -127,6 +127,12 @@ namespace TrumpTown.DataAccess
 
         }
 
+        public IEnumerable<TrumpCard> GetByIds(IEnumerable<BsonValue> ids)
+        {
+            var db = GetDatabase();
+            var query = Query.In("_id", ids);
+            return db.GetCollection<TrumpCard>("areas").Find(query);
+        }
         //public long DeleteRecord(string name, out long documentsAffected)
         //{
         //    Stopwatch s = Stopwatch.StartNew();
