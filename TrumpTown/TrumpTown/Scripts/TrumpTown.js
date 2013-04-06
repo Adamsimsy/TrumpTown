@@ -33,7 +33,11 @@
     //$('#message').focus();
     // Start the connection.
     $.connection.hub.start().done(function () {
-        trumpTown.server.joinGame($('#displayname').val());
+        var userName = $('#username').val();
+        if (!!userName) {
+            trumpTown.server.joinGame(userName);
+        }
+
     });
     
 
@@ -48,10 +52,11 @@
         //});
 
         //server calls to use in the right place
-       // trumpTown.server.joinGame("username");
-
-        //trumpTown.server.play("dataField", "dataValue", "higher/lower");
-
-        //trumpTown.server.playerReady();
+        var userName = $('#username').val();
+        if (!!userName) {
+            trumpTown.server.joinGame(userName);
+            trumpTown.server.play("dataField", "dataValue", "higher/lower");
+            trumpTown.server.playerReady();
+        }
     });
 });
