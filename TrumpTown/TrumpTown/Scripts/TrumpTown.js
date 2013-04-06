@@ -57,10 +57,10 @@
     //$('#message').focus();
     // Start the connection.
     $.connection.hub.start().done(function () {
-            trumpTown.server.joinGame();
+
+        trumpTown.server.joinGame();
+
         //Need to initially get the scores
         trumpTownScore.server.getScores();
-
-        }
     });
 });
