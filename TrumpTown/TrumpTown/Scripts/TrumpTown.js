@@ -22,6 +22,7 @@
     trumpTown.client.OnCard = function(card) {
         var cardData = JSON.parse(card);
         console.log(cardData);
+        writeCardDetails(cardData);
     };
 
     trumpTown.client.OnEndRound = function (cardId, user) {
@@ -36,28 +37,7 @@
     $.connection.hub.start().done(function () {
         var userName = $('#username').val();
         if (!!userName) {
-            trumpTown.server.joinGame(userName);
-        }
-
-    });
-    
-
-    // Start the connection.
-    $.connection.hub.start().done(function () {
-        // do registration of events here
-        //$('#sendmessage').click(function () {
-        //    // Call the Send method on the hub. 
-        //    chat.server.send($('#displayname').val(), $('#message').val());
-        //    // Clear text box and reset focus for next comment. 
-        //    $('#message').val('').focus();
-        //});
-
-        //server calls to use in the right place
-        var userName = $('#username').val();
-        if (!!userName) {
-            trumpTown.server.joinGame(userName);
-            trumpTown.server.play("dataField", "dataValue", "higher/lower");
-            trumpTown.server.playerReady();
+            //trumpTown.server.joinGame(userName);
         }
     });
 });
