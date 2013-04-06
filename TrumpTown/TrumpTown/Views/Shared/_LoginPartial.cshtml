@@ -1,15 +1,15 @@
 ﻿@if (Request.IsAuthenticated) {
     <text>
-        <li class="field"><div class="medium info btn icon-left icon-user">@Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })</div></li>
+        <li>@Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })</li>
 <input id="username" value="@User.Identity.Name" type="hidden" />
         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style = "margin-bottom:0px;" }))
         {
             @Html.AntiForgeryToken()           
-            <li class="field"><div class="medium info btn icon-left icon-user"><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></div></li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         }
     </text>
 } else {
-    <li class="field"><div class="medium info btn icon-left icon-user">@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</div></li>
-    <li class="field"><div class="medium info btn icon-left icon-user">@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</div></li>
+    <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+    <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
 
 }
