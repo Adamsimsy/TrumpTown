@@ -48,7 +48,7 @@ namespace TrumpTown.DataAccess
 
 
 
-        public string GetRecord()
+        public BsonDocument GetRecord()
         {
             var db = GetDatabase();
             var collection = db.GetCollection("areas");
@@ -69,15 +69,15 @@ namespace TrumpTown.DataAccess
 
             var card = collection.AsQueryable()
                 .Skip(randomInt)
-                .Take(1).FirstOrDefault().ToJson();
+                .Take(1).FirstOrDefault();
 
-                return card ?? collection.FindOne().ToJson();
+                return card ?? collection.FindOne();
 
             }
             catch (Exception ex)
             {
                 //swallow expection, it's a hack day after all...
-                return collection.FindOne().ToJson();
+                return collection.FindOne();
             }
    
 

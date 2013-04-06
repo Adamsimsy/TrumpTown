@@ -12,9 +12,10 @@ namespace TrumpTown
     public class TrumpTownHub : Hub
     {
         private List<string> _clients = new List<string>();
-        private List<HubConnectionContext> _readyUsers;
-        private Dictionary<BsonValue, string> _cardsInPlay = new Dictionary<BsonValue, string>(); 
-        private DataAccess.MongoData _mongo = new DataAccess.MongoData();
+        private List<string> _readyUsers = new List<string>();
+        private Dictionary<BsonValue, string> _userCardsInPlay = new Dictionary<BsonValue, string>(); 
+        private List<BsonDocument> _cardsInPlay = new List<BsonDocument>(); 
+        private MongoData _mongo = new MongoData();
  
         public void JoinGame(string username)
         {
@@ -31,18 +32,21 @@ namespace TrumpTown
         
         public override System.Threading.Tasks.Task OnConnected()
         {
+            if (_clients.Count == 0)
+            {
+                Clients.Caller.WonLast = true;
+            }
             _clients.Add(Context.ConnectionId);
  	         return base.OnConnected();
         }
 
-        public string Deal()
+        public void Deal()
         {
-            var card = new Random().Next().ToString();
-            
-            var a = _mongo.GetRecord();
-            //_cardsInPlay.Add(a.Id.ToString(), Context.ConnectionId);
+            var card = _mongo.GetRecord();
+            _userCardsInPlay.Add(card["_id"], Context.ConnectionId);
+            _cardsInPlay.Add(card);
 
-            return card;
+            Clients.Caller.OnCard(card.ToJson());
         }
 
         public void Play(string dataField, bool compareLower)
@@ -52,7 +56,7 @@ namespace TrumpTown
                 // compare data, get winner
                 var winningCard = Compare(dataField, compareLower);
 
-                var winner = Clients.Client(_cardsInPlay[winningCard]);
+                var winner = Clients.Client(_userCardsInPlay[winningCard]);
 
                 winner.WonLast = true;
                 Clients.All.OnEndRound(winningCard, winner.Username);
@@ -62,45 +66,43 @@ namespace TrumpTown
         private BsonValue Compare(string dataField, bool compareLower)
         {
             // get the field values from the cards
-            var cards = _mongo.GetByIds(_cardsInPlay.Keys).ToList();
             var comparer = new DocComparer(dataField, compareLower);
-            cards.Sort(comparer);
-            return cards.FirstOrDefault().Id;
+            _cardsInPlay.Sort(comparer);
+            return _cardsInPlay.FirstOrDefault()["_id"];
         }
         
         public void PlayerReady()
         {
-            _readyUsers.Add(Clients.Caller);
+            _readyUsers.Add(Context.ConnectionId);
             Clients.Others.OnPlayerReady(Clients.Caller.Username);
 
             if (_readyUsers.Count.Equals(_clients.Count))
+            {
                 Clients.All.OnDeal();
 
-            _readyUsers.Clear();
+                _readyUsers.Clear();
+            }
         }
     }
 
-    public class DocComparer: IComparer<TrumpCard>
+    public class DocComparer: IComparer<BsonDocument>
     {
-        private string field;
-        private bool compareLower;
+        private readonly string _field;
+        private readonly bool _compareLower;
 
         public DocComparer(string field, bool compareLower)
         {
-            this.field = field;
-            this.compareLower = compareLower;
+            _field = field;
+            _compareLower = compareLower;
         }
 
-        public int Compare(Models.TrumpCard x, Models.TrumpCard y)
+        public int Compare(BsonDocument xDoc, BsonDocument yDoc)
         {
-            var xDoc = x.ToBsonDocument();
-            var yDoc = y.ToBsonDocument();
+            if (xDoc[_field] > yDoc[_field])
+                return _compareLower ? -1 : 1;
 
-            if (xDoc[field] > yDoc[field])
-                return compareLower ? -1 : 1;
-
-            if (xDoc[field] < yDoc[field])
-                return compareLower ? 1 : -1;
+            if (xDoc[_field] < yDoc[_field])
+                return _compareLower ? 1 : -1;
 
             return 0;
         }
