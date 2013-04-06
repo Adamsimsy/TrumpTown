@@ -82,3 +82,13 @@ C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\zh-Hans\Syst
 C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\zh-Hant\System.Spatial.resources.dll
 C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\obj\Release\TrumpTown.dll
 C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\obj\Release\TrumpTown.pdb
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Microsoft.AspNet.SignalR.Owin.dll
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Microsoft.AspNet.SignalR.SystemWeb.dll
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Microsoft.Owin.Host.SystemWeb.dll
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Owin.dll
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Microsoft.AspNet.SignalR.Owin.xml
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\obj\Release\TrumpTown.csprojResolveAssemblyReference.cache
