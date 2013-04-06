@@ -80,7 +80,6 @@ C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\ko\System.Sp
 C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\ru\System.Spatial.resources.dll
 C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\zh-Hans\System.Spatial.resources.dll
 C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\zh-Hant\System.Spatial.resources.dll
-C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\obj\Debug\TrumpTown.csprojResolveAssemblyReference.cache
 C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\obj\Debug\TrumpTown.dll
 C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\obj\Debug\TrumpTown.pdb
 C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Microsoft.AspNet.SignalR.Core.dll

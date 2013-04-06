@@ -1,5 +1,6 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+   // var card = (TrumpTown.Models.TrumpCard)ViewBag.Card;
 }
 
 <script src="/Scripts/trump-cards.js"></script>
@@ -89,22 +90,21 @@
         <ul id="discussion">
         </ul>*@
 
-
 @* <script type="text/javascript">
      $(function () {
          // Declare a proxy to reference the hub. 
          var chat = $.connection.trumpTownHub;
          // Create a function that the hub can call to broadcast messages.
          chat.client.broadcastMessage = function (name, message) {
-             // Html encode display name and message. 
-             var encodedName = $('<div />').text(name).html();
+             // Html encode display name and message.
+             var encodedName = $('<div />').text('@User.Identity.Name').html();
              var encodedMsg = $('<div />').text(message).html();
              // Add the message to the page. 
              $('#discussion').append('<li><strong>' + encodedName
                  + '</strong>:&nbsp;&nbsp;' + encodedMsg + '</li>');
          };
          // Get the user name and store it to prepend to messages.
-         $('#displayname').val(prompt('Enter your name:', ''));
+         //$('#displayname').val(prompt('Enter your name:', ''));
          // Set initial focus to message input box.  
          //$('#message').focus();
          // Start the connection.
@@ -118,3 +118,4 @@
          });
      });
     </script>*@
+}

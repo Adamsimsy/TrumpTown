@@ -3,7 +3,7 @@
     var trumpTown = $.connection.trumpTownHub;
 
     trumpTown.client.OnJoined = function (name) {
-        //Add username to list of people
+        console.log(name + " has joined the game");
     };
 
     trumpTown.client.OnPlayerReady = function (name) {
@@ -21,6 +21,16 @@
         // enable ready button
     };
 
+    // Set initial focus to message input box.  
+    //$('#message').focus();
+    // Start the connection.
+    $.connection.hub.start().done(function () {
+        $('#displayname').val(prompt('Enter your name:', ''));
+        trumpTown.server.joinGame($('#displayname').val());
+
+    });
+    
+
     // Start the connection.
     $.connection.hub.start().done(function () {
         // do registration of events here
@@ -32,10 +42,10 @@
         //});
 
         //server calls to use in the right place
-        trumpTown.server.JoinGame("username");
+        trumpTown.server.joinGame("username");
 
-        trumpTown.server.Play("dataField", "dataValue", "higher/lower");
+        trumpTown.server.play("dataField", "dataValue", "higher/lower");
 
-        trumpTown.server.OnPlayerReady();
+        trumpTown.server.playerReady();
     });
 });

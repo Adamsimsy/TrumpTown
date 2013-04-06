@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using MongoDB.Bson;
+using TrumpTown.DataAccess;
 
 namespace TrumpTown
 {
@@ -9,7 +12,7 @@ namespace TrumpTown
     {
         private List<string> _clients = new List<string>();
         private List<HubConnectionContext> _readyUsers;
-        private Dictionary<string, string> _cardsInPlay = new Dictionary<string, string>(); 
+        private Dictionary<BsonValue, string> _cardsInPlay = new Dictionary<BsonValue, string>(); 
         private DataAccess.MongoData _mongo = new DataAccess.MongoData();
  
         public void JoinGame(string username)
@@ -35,18 +38,18 @@ namespace TrumpTown
         {
             var card = new Random().Next().ToString();
             
-            var a = _mongo.GetRecord("515ff7a54f8165619b36efcb");
-            _cardsInPlay.Add(a.Id.ToString(), Context.ConnectionId);
+            var a = _mongo.GetRecord();
+            //_cardsInPlay.Add(a.Id.ToString(), Context.ConnectionId);
 
             return card;
         }
 
-        public void Play(string dataField, string dataValue, bool compareLower)
+        public void Play(string dataField, bool compareLower)
         {
             if (Clients.Caller.WonLast)
             {
                 // compare data, get winner
-                var winningCard = Compare(dataField, dataValue, compareLower);
+                var winningCard = Compare(dataField, compareLower);
 
                 var winner = Clients.Client(_cardsInPlay[winningCard]);
 
@@ -55,9 +58,13 @@ namespace TrumpTown
             }
         }
 
-        private string Compare(string dataField, string dataValue, bool compareLower)
+        private BsonValue Compare(string dataField, bool compareLower)
         {
-            return null;
+            // get the field values from the cards
+            var cards = _mongo.GetByIds(_cardsInPlay.Keys).ToList();
+            var comparer = new DocComparer(dataField, compareLower);
+            cards.Sort(comparer);
+            return cards.FirstOrDefault().Id;
         }
         
         public void PlayerReady()
@@ -69,6 +76,32 @@ namespace TrumpTown
                 Clients.All.OnDeal();
 
             _readyUsers.Clear();
+        }
+    }
+
+    public class DocComparer: IComparer<MongoData.TrumpCard>
+    {
+        private string field;
+        private bool compareLower;
+
+        public DocComparer(string field, bool compareLower)
+        {
+            this.field = field;
+            this.compareLower = compareLower;
+        }
+
+        public int Compare(MongoData.TrumpCard x, MongoData.TrumpCard y)
+        {
+            var xDoc = x.ToBsonDocument();
+            var yDoc = y.ToBsonDocument();
+
+            if (xDoc[field] > yDoc[field])
+                return compareLower ? -1 : 1;
+
+            if (xDoc[field] < yDoc[field])
+                return compareLower ? 1 : -1;
+
+            return 0;
         }
     }
 }
