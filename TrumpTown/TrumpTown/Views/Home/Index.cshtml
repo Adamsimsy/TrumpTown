@@ -9,26 +9,31 @@
 
     <div class="row">
       <div class="eight columns">
-      	<h2>Your card</h2>
-          <li class="info alert" style="width:300px">
+      	<h2>Your card!</h2>
+
+          @if (Request.IsAuthenticated)
+          {
+              <li class="info alert" style="width:300px">
               <p><strong>Trump card:</strong> Somerset</p>
 
               <div id="category-selection">
               <p>Select your open data category!</p>
               <table style="padding-right:15px;">
                 <thead>
+                    <tr>
                     <td style="padding-right:15px;font-weight:bold;">Category</td>
                     <td style="padding-right:15px;font-weight:bold;">Stat</td>
+                        </tr>
                 </thead>
                 <tr>
-                    <td style="padding-right:15px;>
+                    <td style="padding-right:15px;">
                         <input name="trump-radio" value="0" type="radio" id="radio2" />
                         <label class="radio" for="0">Density</label>
                     </td>
                     <td>100,000</td>
                 </tr>
                 <tr>
-                    <td style="padding-right:15px;>
+                    <td style="padding-right:15px;">
                         <input name="trump-radio" value="1" type="radio" id="radio2" />   
                         <label class="radio" for="1">Population</label>
                     </td>
@@ -47,6 +52,13 @@
               <div id="category-played" style="color:yellow">
               </div>
           </li>
+          }
+          else
+          {
+              <p>Please login to play!</p>
+          }
+
+          
       </div>
     	<div class="four columns">
     		<h2>Leader board!</h2>
