@@ -13,7 +13,8 @@ namespace TrumpTown
     {
         private List<string> _clients = new List<string>();
         private List<HubConnectionContext> _readyUsers;
-        private Dictionary<BsonValue, string> _cardsInPlay = new Dictionary<BsonValue, string>(); 
+        private Dictionary<BsonValue, string> _userCardsInPlay = new Dictionary<BsonValue, string>(); 
+        private List<BsonDocument> _cardsInPlay = new List<BsonDocument>(); 
         private DataAccess.MongoData _mongo = new DataAccess.MongoData();
  
         public void JoinGame(string username)
@@ -40,7 +41,8 @@ namespace TrumpTown
             var card = new Random().Next().ToString();
             
             var a = _mongo.GetRecord();
-            //_cardsInPlay.Add(a.Id.ToString(), Context.ConnectionId);
+            _userCardsInPlay.Add(a.Id, Context.ConnectionId);
+            _cardsInPlay.Add(a);
 
             return card;
         }
@@ -52,7 +54,7 @@ namespace TrumpTown
                 // compare data, get winner
                 var winningCard = Compare(dataField, compareLower);
 
-                var winner = Clients.Client(_cardsInPlay[winningCard]);
+                var winner = Clients.Client(_userCardsInPlay[winningCard]);
 
                 winner.WonLast = true;
                 Clients.All.OnEndRound(winningCard, winner.Username);
@@ -62,10 +64,9 @@ namespace TrumpTown
         private BsonValue Compare(string dataField, bool compareLower)
         {
             // get the field values from the cards
-            var cards = _mongo.GetByIds(_cardsInPlay.Keys).ToList();
             var comparer = new DocComparer(dataField, compareLower);
-            cards.Sort(comparer);
-            return cards.FirstOrDefault().Id;
+            _cardsInPlay.Sort(comparer);
+            return _cardsInPlay.FirstOrDefault()["_id"];
         }
         
         public void PlayerReady()
@@ -80,27 +81,24 @@ namespace TrumpTown
         }
     }
 
-    public class DocComparer: IComparer<TrumpCard>
+    public class DocComparer: IComparer<BsonDocument>
     {
-        private string field;
-        private bool compareLower;
+        private readonly string _field;
+        private readonly bool _compareLower;
 
         public DocComparer(string field, bool compareLower)
         {
-            this.field = field;
-            this.compareLower = compareLower;
+            _field = field;
+            _compareLower = compareLower;
         }
 
-        public int Compare(Models.TrumpCard x, Models.TrumpCard y)
+        public int Compare(BsonDocument xDoc, BsonDocument yDoc)
         {
-            var xDoc = x.ToBsonDocument();
-            var yDoc = y.ToBsonDocument();
+            if (xDoc[_field] > yDoc[_field])
+                return _compareLower ? -1 : 1;
 
-            if (xDoc[field] > yDoc[field])
-                return compareLower ? -1 : 1;
-
-            if (xDoc[field] < yDoc[field])
-                return compareLower ? 1 : -1;
+            if (xDoc[_field] < yDoc[_field])
+                return _compareLower ? 1 : -1;
 
             return 0;
         }
