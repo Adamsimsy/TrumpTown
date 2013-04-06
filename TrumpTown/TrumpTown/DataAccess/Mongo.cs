@@ -8,12 +8,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using MongoDB.Bson.Serialization.Attributes;
-using TrumpTown.Models;
-using MongoDB.Bson;
-using MongoDB.Driver;
-using MongoDB.Driver.Builders;
-using MongoDB.Driver.GridFS;
-using MongoDB.Driver.Linq;
 
 namespace TrumpTown.DataAccess
 {
@@ -39,71 +33,31 @@ namespace TrumpTown.DataAccess
             return server.GetDatabase(DatabaseName);
         }
 
-        public int GetCount()
+
+        public long GetCount()
         {
             var db = GetDatabase();
-            return (int)db.GetCollection("areas").Count();
+            return db.GetCollection("areas").Count();
         }
 
 
+    
 
-
-        public string GetRecord()
+        public BsonDocument GetRecord(string id)
         {
             var db = GetDatabase();
-            var collection = db.GetCollection("areas");
-            try
-            {
+            var query = Query.LTE("_id", new ObjectId(id));
 
-           //hardcode the count in for now as we are running out of time...
-            //var count = GetCount();
-                var count = 50000;
-
-            var randomNumber = new Random();
-
-            if (count <= 0)
-                count = 2;
-
-            int randomInt = randomNumber.Next(0, count - 1); 
-           
-
-            var card = collection.AsQueryable()
-                .Skip(randomInt)
-                .Take(1).FirstOrDefault().ToJson();
-
-                return card ?? collection.FindOne().ToJson();
-
-            }
-            catch (Exception ex)
-            {
-                //swallow expection, it's a hack day after all...
-                return collection.FindOne().ToJson();
-            }
-   
+            return db.GetCollection("areas").Find(query).FirstOrDefault();
 
         }
 
-        public IEnumerable<TrumpCard> GetByIds(IEnumerable<BsonValue> ids)
+        public IEnumerable<BsonDocument> GetByIds(IEnumerable<BsonValue> ids)
         {
             var db = GetDatabase();
             var query = Query.In("_id", ids);
-            return db.GetCollection<TrumpCard>("areas").Find(query);
+            return db.GetCollection("areas").Find(query);
         }
-        //public long DeleteRecord(string name, out long documentsAffected)
-        //{
-        //    Stopwatch s = Stopwatch.StartNew();
 
-        //    var db = GetDatabase();
-        //    var collection = db.GetCollection<MongoEntity>("entities");
-        //    var query = Query.EQ("Name", name);
-        //    var a = collection.Remove(query);
-
-        //    s.Stop();
-
-        //    documentsAffected = a.DocumentsAffected;
-
-        //    return s.ElapsedMilliseconds;
-
-        //}
     }
 }

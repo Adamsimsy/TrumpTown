@@ -41,7 +41,7 @@ namespace TrumpTown
             var card = new Random().Next().ToString();
             
             var a = _mongo.GetRecord();
-            _userCardsInPlay.Add(a.Id, Context.ConnectionId);
+            _userCardsInPlay.Add(a["_id"], Context.ConnectionId);
             _cardsInPlay.Add(a);
 
             return card;

@@ -40,10 +40,10 @@
         //});
 
         //server calls to use in the right place
-        trumpTown.server.joinGame("username");
+       // trumpTown.server.joinGame("username");
 
-        trumpTown.server.play("dataField", "dataValue", "higher/lower");
+        //trumpTown.server.play("dataField", "dataValue", "higher/lower");
 
-        trumpTown.server.playerReady();
+        //trumpTown.server.playerReady();
     });
 });
