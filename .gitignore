@@ -1,0 +1,81 @@
+
+#ignore thumbnails created by windows
+Thumbs.db
+#Ignore files build by Visual Studio
+*.obj
+*.exe
+*.pdb
+*.user
+*.aps
+*.pch
+*.vspscc
+*_i.c
+*_p.c
+*.ncb
+*.suo
+*.tlb
+*.tlh
+*.bak
+*.cache
+*.ilk
+*.log
+*.lib
+*.sbr*
+*.ncrunchproject*
+*.ncrunchsolution*
+*.dll
+!Depends/*/*.dll
+
+#sitecore TDS package
+*.update
+
+[Bb]in
+[Dd]ebug*/
+obj
+obj/
+temp/
+
+
+
+#Ignore not need TDS files
+BuiltFiles_Debug.txt
+IconCache/
+
+
+
+SWInternet.suo
+
+!Depends/*
+!Depends/*/*
+!Depends/*/*/*
+!Depends/*/*/*/*
+!Depends/*/*/*/*/*
+!Depends/*/*/*/*/*/*
+!Depends/*/*/*/*/*/*/*
+!Depends/*/*/*/*/*/*/*/*
+!Depends/*/*/*/*/*/*/*/*/*
+!Depends/*/*/*/*/*/*/*/*/*/*
+!Depends/*/*/*/*/*/*/*/*/*/*/*
+!Depends/*/*/*/*/*/*/*/*/*/*/*/*
+!Depends/*/*/*/*/*/*/*/*/*/*/*/*/*
+!Depends/*/*/*/*/*/*/*/*/*/*/*/*/*/*
+!Depends/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
+!Depends/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*/*
+
+
+#  [Rr]elease*/
+_ReSharper*/
+#  [Tt]est[Rr]esult*
+#  indexes/
+#  aspnet_client/
+#  !NServiceBus.Host.exe
+#  !NServiceBus.Host.pdb
+#   Docs/
+# App_Data/
+#  !*/[Cc]onfiguration/[Dd]ebug/
+#  !*/[Cc]onfiguration/[Rr]elease/
+#  *.DS_Store
+#  upload/
+
+
+
