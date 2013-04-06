@@ -36,8 +36,6 @@
     //$('#message').focus();
     // Start the connection.
     $.connection.hub.start().done(function () {
-        var userName = $('#username').val();
-        if (!!userName) {
             trumpTown.server.joinGame();
         }
     });
