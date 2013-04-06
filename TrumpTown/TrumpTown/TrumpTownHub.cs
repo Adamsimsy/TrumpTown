@@ -11,11 +11,11 @@ namespace TrumpTown
 {
     public class TrumpTownHub : Hub
     {
-        private List<string> _clients = new List<string>();
-        private List<string> _readyUsers = new List<string>();
-        private Dictionary<BsonValue, string> _userCardsInPlay = new Dictionary<BsonValue, string>(); 
-        private List<BsonDocument> _cardsInPlay = new List<BsonDocument>(); 
-        private MongoData _mongo = new MongoData();
+        private static List<string> _clients = new List<string>();
+        private static List<string> _readyUsers = new List<string>();
+        private static Dictionary<BsonValue, string> _userCardsInPlay = new Dictionary<BsonValue, string>(); 
+        private static List<BsonDocument> _cardsInPlay = new List<BsonDocument>(); 
+        private static MongoData _mongo = new MongoData();
  
         public void JoinGame(string username)
         {
@@ -43,10 +43,13 @@ namespace TrumpTown
         public void Deal()
         {
             var card = _mongo.GetRecord();
-            _userCardsInPlay.Add(card["_id"], Context.ConnectionId);
+            var id = card["_id"];
+            _userCardsInPlay.Add(id, Context.ConnectionId);
             _cardsInPlay.Add(card);
 
-            Clients.Caller.OnCard(card.ToJson());
+            var json = card.ToJson().Replace("ObjectId(\"" + id + "\")", "\"" + id + "\"");
+
+            Clients.Caller.OnCard(json);
         }
 
         public void Play(string dataField, bool compareLower)
@@ -59,7 +62,7 @@ namespace TrumpTown
                 var winner = Clients.Client(_userCardsInPlay[winningCard]);
 
                 winner.WonLast = true;
-                Clients.All.OnEndRound(winningCard, winner.Username);
+                Clients.All.OnEndRound(winningCard.ToJson(), winner.Username);
             }
         }
 

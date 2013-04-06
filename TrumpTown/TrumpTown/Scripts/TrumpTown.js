@@ -6,21 +6,21 @@
         console.log(name + " has joined the game");
     };
 
-    trumpTown.client.OnJoined = function (name) {
+    trumpTown.client.OnLeave = function (name) {
         console.log(name + " has left the game");
     }
     
     trumpTown.client.OnPlayerReady = function (name) {
-        console.log(name + "is ready to play");
+        console.log(name + " is ready to play");
     };
 
     trumpTown.client.OnDeal = function () {
         // render the details of the card
-        trumpTown.server.Deal();
+        trumpTown.server.deal();
     };
     
     trumpTown.client.OnCard = function(card) {
-        console.log(card);
+        var cardData = JSON.parse(card);
     }
 
     trumpTown.client.OnEndRound = function (cardId, user) {
