@@ -35,7 +35,7 @@
 
   <!-- We highly recommend you use SASS and write your custom styles in sass/_custom.scss.
        However, there is a blank style.css in the css directory should you prefer -->
-  <link rel="stylesheet" href="Content/themes/gumby/css/gumby.css">
+  <link rel="stylesheet" href="/Content/themes/gumby/css/gumby.css">
   <!-- <link rel="stylesheet" href="Content/themes/gumby/css/style.css"> -->
 
   <script src="scripts/js/libs/modernizr-2.6.2.min.js"></script>
@@ -65,17 +65,21 @@
       <a class="toggle" gumby-trigger="#nav3 > .row > ul" href="#"><i class="icon-menu"></i></a>
       <h1 class="four columns logo">
         <a href="#">
-          <img src="Content/themes/gumby/img/trumptown_mainlogo.png" gumby-retina />
+          <img src="/Content/themes/gumby/img/trumptown_mainlogo.png" gumby-retina />
         </a>
       </h1>
       <ul class="eight columns">
         <li class="field"><div class="medium info btn icon-left icon-user"><a href="#">Leader board</a></div></li>
-        <li class="field"><div class="medium info btn icon-left icon-user"><a href="#">Login</a></div></li>
+        
+            @Html.Partial("_LoginPartial")
+        
       </ul>
     </div>
   </div>
 
   <div class="container">
+      @RenderBody()
+
     <div class="row">
       <h1 class="lead">Typography</h1>
       <div class="row">
@@ -1118,5 +1122,6 @@
     <script>window.attachEvent('onload',function(){CFInstall.check({mode:'overlay'})})</script>
   <![endif]-->
     @RenderSection("featured", false)
+    @RenderSection("scripts", required: false)
   </body>
 </html>
