@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using Microsoft.Web.WebPages.OAuth;
@@ -14,25 +15,25 @@ namespace TrumpTown
             // To let users of this site log in using their accounts from other sites such as Microsoft, Facebook, and Twitter,
             // you must update this site. For more information visit http://go.microsoft.com/fwlink/?LinkID=252166
 
+            //LinkedIn is currently broken
+            //OAuthWebSecurity.RegisterLinkedInClient(
+            //consumerKey: ConfigurationManager.AppSettings["LinkedInClient.ConsumerKey"],
+            //consumerSecret: ConfigurationManager.AppSettings["LinkedInClient.ConsumerSecret"]);
+
             //OAuthWebSecurity.RegisterMicrosoftClient(
-            //    clientId: "",
-            //    clientSecret: "");
+            //    clientId: ConfigurationManager.AppSettings["MicrosoftClient.ClientId"],
+            //    clientSecret: ConfigurationManager.AppSettings["MicrosoftClient.ClientSecret"]);
 
-            //OAuthWebSecurity.RegisterTwitterClient(
-            //    consumerKey: "",
-            //    consumerSecret: "");
+            OAuthWebSecurity.RegisterTwitterClient(
+                consumerKey: ConfigurationManager.AppSettings["TwitterClient.ConsumerKey"],
+                consumerSecret: ConfigurationManager.AppSettings["TwitterClient.ConsumerSecret"]);
 
-            //Live
             OAuthWebSecurity.RegisterFacebookClient(
-                appId: "220737724717525",
-                appSecret: "a96b9b42bb9b560bd785b218fd020318");
+                appId: ConfigurationManager.AppSettings["FacebookClient.AppId"],
+                appSecret: ConfigurationManager.AppSettings["FacebookClient.AppSecret"]);
 
-            //Dev
-            //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "100440283488071",
-            //    appSecret: "157351e3f0f78b42180c265fd4cd9b1f");
-
-            //OAuthWebSecurity.RegisterGoogleClient();
+            OAuthWebSecurity.RegisterGoogleClient();
+            OAuthWebSecurity.RegisterYahooClient();
         }
     }
 }
