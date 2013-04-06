@@ -35,7 +35,9 @@ obj
 obj/
 temp/
 
+*FileListAbsolute.txt
 
+TrumpTown/TrumpTown/obj/*
 
 #Ignore not need TDS files
 BuiltFiles_Debug.txt
