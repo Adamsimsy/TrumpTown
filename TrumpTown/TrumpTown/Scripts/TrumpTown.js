@@ -1,19 +1,27 @@
 ﻿$(function () {
     // Declare a proxy to reference the hub. 
-    var trumpTown = $.connection.trumpTownHub;
+    trumpTown = $.connection.trumpTownHub;
 
     trumpTown.client.OnJoined = function (name) {
         console.log(name + " has joined the game");
     };
 
+    trumpTown.client.OnJoined = function (name) {
+        console.log(name + " has left the game");
+    }
+    
     trumpTown.client.OnPlayerReady = function (name) {
-        //highlght user as ready to play
+        console.log(name + "is ready to play");
     };
 
     trumpTown.client.OnDeal = function () {
         // render the details of the card
-        var mycard = trumpTown.server.Deal();
+        trumpTown.server.Deal();
     };
+    
+    trumpTown.client.OnCard = function(card) {
+        console.log(card);
+    }
 
     trumpTown.client.OnEndRound = function (cardId, user) {
         // if card and user match highlight as winner

@@ -12,10 +12,10 @@ namespace TrumpTown
     public class TrumpTownHub : Hub
     {
         private List<string> _clients = new List<string>();
-        private List<HubConnectionContext> _readyUsers;
+        private List<string> _readyUsers = new List<string>();
         private Dictionary<BsonValue, string> _userCardsInPlay = new Dictionary<BsonValue, string>(); 
         private List<BsonDocument> _cardsInPlay = new List<BsonDocument>(); 
-        private DataAccess.MongoData _mongo = new DataAccess.MongoData();
+        private MongoData _mongo = new MongoData();
  
         public void JoinGame(string username)
         {
@@ -32,19 +32,21 @@ namespace TrumpTown
         
         public override System.Threading.Tasks.Task OnConnected()
         {
+            if (_clients.Count == 0)
+            {
+                Clients.Caller.WonLast = true;
+            }
             _clients.Add(Context.ConnectionId);
  	         return base.OnConnected();
         }
 
-        public string Deal()
+        public void Deal()
         {
-            var card = new Random().Next().ToString();
-            
-            var a = _mongo.GetRecord();
-            _userCardsInPlay.Add(a["_id"], Context.ConnectionId);
-            _cardsInPlay.Add(a);
+            var card = _mongo.GetRecord();
+            _userCardsInPlay.Add(card["_id"], Context.ConnectionId);
+            _cardsInPlay.Add(card);
 
-            return card;
+            Clients.Caller.OnCard(card.ToJson());
         }
 
         public void Play(string dataField, bool compareLower)
@@ -71,13 +73,15 @@ namespace TrumpTown
         
         public void PlayerReady()
         {
-            _readyUsers.Add(Clients.Caller);
+            _readyUsers.Add(Context.ConnectionId);
             Clients.Others.OnPlayerReady(Clients.Caller.Username);
 
             if (_readyUsers.Count.Equals(_clients.Count))
+            {
                 Clients.All.OnDeal();
 
-            _readyUsers.Clear();
+                _readyUsers.Clear();
+            }
         }
     }
 
