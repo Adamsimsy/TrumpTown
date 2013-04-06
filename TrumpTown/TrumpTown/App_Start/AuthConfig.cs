@@ -22,9 +22,15 @@ namespace TrumpTown
             //    consumerKey: "",
             //    consumerSecret: "");
 
+            //Live
+            OAuthWebSecurity.RegisterFacebookClient(
+                appId: "220737724717525",
+                appSecret: "a96b9b42bb9b560bd785b218fd020318");
+
+            //Dev
             //OAuthWebSecurity.RegisterFacebookClient(
-            //    appId: "",
-            //    appSecret: "");
+            //    appId: "100440283488071",
+            //    appSecret: "157351e3f0f78b42180c265fd4cd9b1f");
 
             //OAuthWebSecurity.RegisterGoogleClient();
         }
