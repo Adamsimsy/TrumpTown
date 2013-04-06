@@ -8,8 +8,19 @@
     $("#low").click(function () {
         playTrumpCard("low");
     });
+
+    writeCardDetails();
 });
 
+function writeCardDetails() {
+
+    var text = "<table style=\"padding-right:15px;\"><thead><tr><td style=\"padding-right:15px;font-weight:bold;\">Category</td><td style=\"padding-right:15px;font-weight:bold;\">Stat</td></tr></thead>";
+
+    text = text + "<tr><td style=\"padding-right:15px;\"><input name=\"trump-radio\" value=\"0\" type=\"radio\" id=\"radio2\" /><label class=\"radio\" for=\"0\">Density</label></td><td>100,000</td></tr>";
+
+    text = text + "</table>";
+    $("#open-data").html(text);
+}
 
 
 function playTrumpCard(selection) {
