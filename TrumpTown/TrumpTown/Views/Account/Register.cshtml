@@ -17,20 +17,20 @@
 
     <fieldset>
         <legend>Registration Form</legend>
-        <ol>
-            <li>
+        <ul>
+            <li class="field">
                 @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
+                @Html.TextBoxFor(m => m.UserName, new { @class = "text input" , @placeholder = "Username"})
             </li>
-            <li>
+            <li class="field">
                 @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
+                @Html.PasswordFor(m => m.Password, new { @class = "text input" , @placeholder = "Password"})
             </li>
-            <li>
+            <li class="field">
                 @Html.LabelFor(m => m.ConfirmPassword)
-                @Html.PasswordFor(m => m.ConfirmPassword)
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "text input" , @placeholder = "Confirm password"})
             </li>
-        </ol>
+        </ul>
         <div class="pretty medium info btn">
         <input type="submit" value="Register" />
             </div>
