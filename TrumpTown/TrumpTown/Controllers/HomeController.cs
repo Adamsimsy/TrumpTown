@@ -11,6 +11,9 @@ namespace TrumpTown.Controllers
         public ActionResult Index()
         {
             ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
+            DataAccess.MongoData mongo = new DataAccess.MongoData();
+
+            ViewBag.Card = mongo.GetRecord("515ff7a54f8165619b36efcb");
 
             return View();
         }
