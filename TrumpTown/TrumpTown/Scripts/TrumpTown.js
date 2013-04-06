@@ -18,10 +18,11 @@
         // render the details of the card
         trumpTown.server.deal();
     };
-    
+
     trumpTown.client.OnCard = function(card) {
         var cardData = JSON.parse(card);
-    }
+        console.log(cardData);
+    };
 
     trumpTown.client.OnEndRound = function (cardId, user) {
         // if card and user match highlight as winner

@@ -10,6 +10,9 @@
     });
 
     writeCardDetails();
+    $('#ready').click(function() {
+        trumpTown.server.playerReady();
+    });
 });
 
 function writeCardDetails(card) {
