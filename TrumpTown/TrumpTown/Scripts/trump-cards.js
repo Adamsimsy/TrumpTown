@@ -12,7 +12,7 @@
     writeCardDetails();
 });
 
-function writeCardDetails() {
+function writeCardDetails(card) {
 
     var text = "<table style=\"padding-right:15px;\"><thead><tr><td style=\"padding-right:15px;font-weight:bold;\">Category</td><td style=\"padding-right:15px;font-weight:bold;\">Stat</td></tr></thead>";
 
