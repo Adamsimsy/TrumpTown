@@ -52,6 +52,12 @@
     <Reference Include="Microsoft.Owin.Host.SystemWeb">
       <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.1.0.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\packages\mongocsharpdriver.1.8.0\lib\net35\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\packages\mongocsharpdriver.1.8.0\lib\net35\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
@@ -198,6 +204,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="DataAccess\Mongo.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -207,6 +214,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="apple-touch-icon-precomposed.png" />
+    <Content Include="apple-touch-icon.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -261,11 +270,119 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Content\themes\gumby\css\gumby.css" />
+    <Content Include="Content\themes\gumby\css\style.css" />
+    <Content Include="Content\themes\gumby\img\gumby_mainlogo%402x.png" />
+    <Content Include="Content\themes\gumby\img\gumby_mainlogo.png" />
+    <Content Include="Content\themes\gumby\img\img_silence_demo.jpg" />
+    <Content Include="Content\themes\gumby\img\trumptown_mainlogo.png" />
+    <Content Include="demo.html" />
+    <Content Include="facebook.jpg" />
     <Content Include="favicon.ico" />
+    <Content Include="favicon.png" />
     <Content Include="Global.asax" />
+    <Content Include="Content\themes\gumby\fonts\icons\entypo.eot" />
+    <Content Include="Content\themes\gumby\fonts\icons\entypo.ttf" />
+    <Content Include="Content\themes\gumby\fonts\icons\entypo.woff" />
+    <Content Include="Content\themes\gumby\sass\functions\_all.scss" />
+    <Content Include="Content\themes\gumby\sass\functions\_breakpoints.scss" />
+    <Content Include="Content\themes\gumby\sass\functions\_buttons.scss" />
+    <Content Include="Content\themes\gumby\sass\functions\_forms.scss" />
+    <Content Include="Content\themes\gumby\sass\functions\_grid-calc.scss" />
+    <Content Include="Content\themes\gumby\sass\functions\_height-calc.scss" />
+    <Content Include="Content\themes\gumby\sass\functions\_line-and-height.scss" />
+    <Content Include="Content\themes\gumby\sass\functions\_responsivity.scss" />
+    <Content Include="Content\themes\gumby\sass\functions\_strip-units.scss" />
+    <Content Include="Content\themes\gumby\sass\functions\_typography.scss" />
+    <Content Include="Content\themes\gumby\sass\gumby.scss" />
+    <Content Include="Content\themes\gumby\sass\ui\_all.scss" />
+    <Content Include="Content\themes\gumby\sass\ui\_buttons.scss" />
+    <Content Include="Content\themes\gumby\sass\ui\_forms.scss" />
+    <Content Include="Content\themes\gumby\sass\ui\_icons.scss" />
+    <Content Include="Content\themes\gumby\sass\ui\_images.scss" />
+    <Content Include="Content\themes\gumby\sass\ui\_labels.scss" />
+    <Content Include="Content\themes\gumby\sass\ui\_navbar.scss" />
+    <Content Include="Content\themes\gumby\sass\ui\_tabs.scss" />
+    <Content Include="Content\themes\gumby\sass\ui\_video.scss" />
+    <Content Include="Content\themes\gumby\sass\var\icons\_entypo-icon-list.scss" />
+    <Content Include="Content\themes\gumby\sass\var\icons\_entypo.scss" />
+    <Content Include="Content\themes\gumby\sass\var\_lists.scss" />
+    <Content Include="Content\themes\gumby\sass\var\_settings.scss" />
+    <Content Include="Content\themes\gumby\sass\_base.scss" />
+    <Content Include="Content\themes\gumby\sass\_custom.scss" />
+    <Content Include="Content\themes\gumby\sass\_fonts.scss" />
+    <Content Include="Content\themes\gumby\sass\_grid.scss" />
+    <Content Include="Content\themes\gumby\sass\_typography.scss" />
+    <Content Include="component.json" />
+    <Content Include="config.rb" />
+    <Content Include="GumbyTrumpTown\.gitignore" />
+    <Content Include="GumbyTrumpTown\component.json" />
+    <Content Include="GumbyTrumpTown\config.rb" />
+    <Content Include="GumbyTrumpTown\fonts\icons\entypo.eot" />
+    <Content Include="GumbyTrumpTown\fonts\icons\entypo.ttf" />
+    <Content Include="GumbyTrumpTown\fonts\icons\entypo.woff" />
+    <Content Include="GumbyTrumpTown\README.md" />
+    <Content Include="GumbyTrumpTown\sass\functions\_all.scss" />
+    <Content Include="GumbyTrumpTown\sass\functions\_breakpoints.scss" />
+    <Content Include="GumbyTrumpTown\sass\functions\_buttons.scss" />
+    <Content Include="GumbyTrumpTown\sass\functions\_forms.scss" />
+    <Content Include="GumbyTrumpTown\sass\functions\_grid-calc.scss" />
+    <Content Include="GumbyTrumpTown\sass\functions\_height-calc.scss" />
+    <Content Include="GumbyTrumpTown\sass\functions\_line-and-height.scss" />
+    <Content Include="GumbyTrumpTown\sass\functions\_responsivity.scss" />
+    <Content Include="GumbyTrumpTown\sass\functions\_strip-units.scss" />
+    <Content Include="GumbyTrumpTown\sass\functions\_typography.scss" />
+    <Content Include="GumbyTrumpTown\sass\gumby.scss" />
+    <Content Include="GumbyTrumpTown\sass\ui\_all.scss" />
+    <Content Include="GumbyTrumpTown\sass\ui\_buttons.scss" />
+    <Content Include="GumbyTrumpTown\sass\ui\_forms.scss" />
+    <Content Include="GumbyTrumpTown\sass\ui\_icons.scss" />
+    <Content Include="GumbyTrumpTown\sass\ui\_images.scss" />
+    <Content Include="GumbyTrumpTown\sass\ui\_labels.scss" />
+    <Content Include="GumbyTrumpTown\sass\ui\_navbar.scss" />
+    <Content Include="GumbyTrumpTown\sass\ui\_tabs.scss" />
+    <Content Include="GumbyTrumpTown\sass\ui\_video.scss" />
+    <Content Include="GumbyTrumpTown\sass\var\icons\_entypo-icon-list.scss" />
+    <Content Include="GumbyTrumpTown\sass\var\icons\_entypo.scss" />
+    <Content Include="GumbyTrumpTown\sass\var\_lists.scss" />
+    <Content Include="GumbyTrumpTown\sass\var\_settings.scss" />
+    <Content Include="GumbyTrumpTown\sass\_base.scss" />
+    <Content Include="GumbyTrumpTown\sass\_custom.scss" />
+    <Content Include="GumbyTrumpTown\sass\_fonts.scss" />
+    <Content Include="GumbyTrumpTown\sass\_grid.scss" />
+    <Content Include="GumbyTrumpTown\sass\_typography.scss" />
     <None Include="Properties\PublishProfiles\trumptown - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\trumptown - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="GumbyTrumpTown\apple-touch-icon-precomposed.png" />
+    <Content Include="GumbyTrumpTown\apple-touch-icon.png" />
+    <Content Include="GumbyTrumpTown\css\gumby.css" />
+    <Content Include="GumbyTrumpTown\css\style.css" />
+    <Content Include="GumbyTrumpTown\demo.html" />
+    <Content Include="GumbyTrumpTown\facebook.jpg" />
+    <Content Include="GumbyTrumpTown\favicon.png" />
+    <Content Include="GumbyTrumpTown\humans.txt" />
+    <Content Include="GumbyTrumpTown\img\gumby_mainlogo%402x.png" />
+    <Content Include="GumbyTrumpTown\img\gumby_mainlogo.png" />
+    <Content Include="GumbyTrumpTown\img\img_silence_demo.jpg" />
+    <Content Include="GumbyTrumpTown\img\trumptown_mainlogo.png" />
+    <Content Include="GumbyTrumpTown\index.html" />
+    <Content Include="GumbyTrumpTown\js\libs\gumby.js" />
+    <Content Include="GumbyTrumpTown\js\libs\gumby.min.js" />
+    <Content Include="GumbyTrumpTown\js\libs\jquery-1.8.3.min.js" />
+    <Content Include="GumbyTrumpTown\js\libs\modernizr-2.6.2.min.js" />
+    <Content Include="GumbyTrumpTown\js\libs\ui\gumby.checkbox.js" />
+    <Content Include="GumbyTrumpTown\js\libs\ui\gumby.fixed.js" />
+    <Content Include="GumbyTrumpTown\js\libs\ui\gumby.radiobtn.js" />
+    <Content Include="GumbyTrumpTown\js\libs\ui\gumby.retina.js" />
+    <Content Include="GumbyTrumpTown\js\libs\ui\gumby.skiplink.js" />
+    <Content Include="GumbyTrumpTown\js\libs\ui\gumby.tabs.js" />
+    <Content Include="GumbyTrumpTown\js\libs\ui\gumby.toggleswitch.js" />
+    <Content Include="GumbyTrumpTown\js\libs\ui\jquery.validation.js" />
+    <Content Include="GumbyTrumpTown\js\main.js" />
+    <Content Include="GumbyTrumpTown\js\plugins.js" />
+    <Content Include="humans.txt" />
+    <Content Include="index.html" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -281,7 +398,21 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
+    <Content Include="Scripts\libs\gumby.js" />
+    <Content Include="Scripts\libs\gumby.min.js" />
+    <Content Include="Scripts\libs\jquery-1.8.3.min.js" />
+    <Content Include="Scripts\libs\modernizr-2.6.2.min.js" />
+    <Content Include="Scripts\libs\ui\gumby.checkbox.js" />
+    <Content Include="Scripts\libs\ui\gumby.fixed.js" />
+    <Content Include="Scripts\libs\ui\gumby.radiobtn.js" />
+    <Content Include="Scripts\libs\ui\gumby.retina.js" />
+    <Content Include="Scripts\libs\ui\gumby.skiplink.js" />
+    <Content Include="Scripts\libs\ui\gumby.tabs.js" />
+    <Content Include="Scripts\libs\ui\gumby.toggleswitch.js" />
+    <Content Include="Scripts\libs\ui\jquery.validation.js" />
+    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\plugins.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

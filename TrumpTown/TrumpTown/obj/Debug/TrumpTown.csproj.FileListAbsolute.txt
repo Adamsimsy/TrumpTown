@@ -92,3 +92,7 @@ C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Microsoft.As
 C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Microsoft.AspNet.SignalR.Owin.xml
 C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Microsoft.AspNet.SignalR.SystemWeb.xml
 C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\Microsoft.Owin.Host.SystemWeb.xml
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\MongoDB.Bson.dll
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\MongoDB.Driver.dll
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\MongoDB.Bson.xml
+C:\Users\Steve\Dropbox\Apps\Azure\trumptown\TrumpTown\TrumpTown\bin\MongoDB.Driver.xml
