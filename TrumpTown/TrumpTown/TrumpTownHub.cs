@@ -5,6 +5,7 @@ using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using MongoDB.Bson;
 using TrumpTown.DataAccess;
+using TrumpTown.Models;
 
 namespace TrumpTown
 {
@@ -79,7 +80,7 @@ namespace TrumpTown
         }
     }
 
-    public class DocComparer: IComparer<MongoData.TrumpCard>
+    public class DocComparer: IComparer<TrumpCard>
     {
         private string field;
         private bool compareLower;
@@ -90,7 +91,7 @@ namespace TrumpTown
             this.compareLower = compareLower;
         }
 
-        public int Compare(MongoData.TrumpCard x, MongoData.TrumpCard y)
+        public int Compare(Models.TrumpCard x, Models.TrumpCard y)
         {
             var xDoc = x.ToBsonDocument();
             var yDoc = y.ToBsonDocument();
