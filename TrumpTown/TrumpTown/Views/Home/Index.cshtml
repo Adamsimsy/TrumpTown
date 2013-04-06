@@ -2,29 +2,95 @@
     ViewBag.Title = "Home Page";
 }
 
+<script src="/Scripts/trump-cards.js"></script>
+
 <div class="container">
 
     <div class="row">
-      <div class="eight columns" style="background-color:blue">
+      <div class="eight columns">
       	<h2>Your card</h2>
+          <li class="info alert" style="width:300px">
+              <p>Card: Somerset</p>
+
+              <div id="category-selection">
+              <p>Select your trump category!</p>
+              <table style="padding-right:15px;">
+                <thead>
+                    <td>Category</td>
+                    <td>Stat</td>
+                </thead>
+                <tr>
+                    <td>
+                        <input name="trump-radio" value="0" type="radio" id="radio2" />
+                        <label class="radio" for="0">Density</label>
+                    </td>
+                    <td>100,000</td>
+                </tr>
+                <tr>
+                    <td>
+                        <input name="trump-radio" value="1" type="radio" id="radio2" />   
+                        <label class="radio" for="1">Population</label>
+                    </td>
+                    <td>100,000</td>
+                </tr>
+            </table>
+                  <div id="category-error" style="color:red"></div>
+               </div>
+
+              <div id="category-highlow">
+                  <p>How do you want to play your trump?</p>
+                  <div class="medium primary btn"><a href="#" id="high">High</a></div>
+                  <div class="medium secondary btn"><a href="#" id="low">Low</a></div>
+              </div>
+
+              <div id="category-played" style="color:yellow">
+              </div>
+          </li>
       </div>
-    	<div class="four columns" style="background-color:red">
+    	<div class="four columns">
     		<h2>Leader board!</h2>
+            <table>
+                <thead>
+                    <td style="padding-right:15px;">Position</td>
+                    <td style="padding-right:15px;">Username</td>
+                    <td>Score</td>
+                </thead>
+                <tr>
+                    <td>1</td>
+                    <td>User 1</td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>User 1</td>
+                    <td>60</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>User 1</td>
+                    <td>40</td>
+                </tr>
+            </table>
     	</div>
     </div>
   
 </div>
 
 
-<h1 class="lead">Steve's first Signal R app :)</h1>
+<script type="text/javascript">
+   
+
+</script>
+
+@*<h1 class="lead">Steve's first Signal R app :)</h1>
 <input type="text" id="message" />
         <input type="button" id="sendmessage" value="Send" />
         <input type="hidden" id="displayname" />
         <ul id="discussion">
-        </ul>
+        </ul>*@
 
 
- <script type="text/javascript">
+@* <script type="text/javascript">
      $(function () {
          // Declare a proxy to reference the hub. 
          var chat = $.connection.trumpTownHub;
@@ -51,4 +117,4 @@
              });
          });
      });
-    </script>
+    </script>*@
