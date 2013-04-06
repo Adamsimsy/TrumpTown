@@ -25,9 +25,7 @@
     //$('#message').focus();
     // Start the connection.
     $.connection.hub.start().done(function () {
-        $('#displayname').val(prompt('Enter your name:', ''));
         trumpTown.server.joinGame($('#displayname').val());
-
     });
     
 
